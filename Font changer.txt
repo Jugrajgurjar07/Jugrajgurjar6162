@@ -1,0 +1,36 @@
+Font changger Arial to Cambria
+
+_____________________________________________________________________________________________________
+Sub ChangeArialToCambria()
+    Dim slide As slide
+    Dim shape As shape
+    Dim textRange As textRange
+    Dim i As Integer
+    
+    ' Loop through all slides in the presentation
+    For Each slide In ActivePresentation.Slides
+        ' Loop through all shapes on each slide
+        For Each shape In slide.Shapes
+            ' Check if the shape has text
+            If shape.HasTextFrame Then
+                ' Check if the text frame has text
+                If shape.TextFrame.HasText Then
+                    ' Loop through each paragraph in the shape
+                    Set textRange = shape.TextFrame.TextRange
+                    ' Loop through every character in the text range
+                    For i = 1 To textRange.Characters.Count
+                        ' Check if the font of this character is Arial
+                        If textRange.Characters(i, 1).Font.Name = "Arial" Then
+                            ' Change the font to Cambria for that character
+                            textRange.Characters(i, 1).Font.Name = "Cambria"
+                        End If
+                    Next i
+                End If
+            End If
+        Next shape
+    Next slide
+End Sub
+
+
+
+_____________________________________________________________________________________________________

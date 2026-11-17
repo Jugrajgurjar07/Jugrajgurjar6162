@@ -1,0 +1,38 @@
+Sub CopySelectedShapeProperties_NoClipboard()
+    Dim shp As Shape
+    Dim effectInfo As String
+
+    If ActiveWindow.Selection.Type <> ppSelectionShapes Then
+        MsgBox "Pehle ek shape select karo (jisme effect laga ho).", vbExclamation
+        Exit Sub
+    End If
+
+    Set shp = ActiveWindow.Selection.ShapeRange(1)
+
+    effectInfo = "3D Effect Settings:" & vbCrLf
+    With shp.ThreeD
+        effectInfo = effectInfo & "Visible: " & .Visible & vbCrLf
+        effectInfo = effectInfo & "BevelTopType: " & .BevelTopType & vbCrLf
+        effectInfo = effectInfo & "BevelTopDepth: " & .BevelTopDepth & vbCrLf
+        effectInfo = effectInfo & "BevelTopInset: " & .BevelTopInset & vbCrLf
+        effectInfo = effectInfo & "BevelBottomType: " & .BevelBottomType & vbCrLf
+        effectInfo = effectInfo & "BevelBottomDepth: " & .BevelBottomDepth & vbCrLf
+        effectInfo = effectInfo & "BevelBottomInset: " & .BevelBottomInset & vbCrLf
+        effectInfo = effectInfo & "Depth: " & .Depth & vbCrLf
+        effectInfo = effectInfo & "ContourWidth: " & .ContourWidth & vbCrLf
+        effectInfo = effectInfo & "LightAngle: " & .LightAngle & vbCrLf
+    End With
+
+    effectInfo = effectInfo & vbCrLf & "Shadow Settings:" & vbCrLf
+    With shp.Shadow
+        effectInfo = effectInfo & "Visible: " & .Visible & vbCrLf
+        effectInfo = effectInfo & "Blur: " & .Blur & vbCrLf
+        effectInfo = effectInfo & "OffsetX: " & .OffsetX & vbCrLf
+        effectInfo = effectInfo & "OffsetY: " & .OffsetY & vbCrLf
+    End With
+
+    effectInfo = effectInfo & vbCrLf & "Fill Color: " & shp.Fill.ForeColor.RGB & vbCrLf
+    effectInfo = effectInfo & "Line Color: " & shp.Line.ForeColor.RGB & vbCrLf
+
+    MsgBox effectInfo, vbInformation, "Effect Details - Press Ctrl+C to Copy"
+End Sub

@@ -1,0 +1,41 @@
+Sub ReplaceFontInAllShapes()
+    Dim sld As Slide
+    Dim shp As Shape
+    
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            ProcessShape shp
+        Next shp
+    Next sld
+    
+    MsgBox "Font replacement completed!"
+End Sub
+
+Sub ProcessShape(shp As Shape)
+    Dim i As Integer
+    
+    ' Agar shape group hai, to uske andar ke shapes check karo
+    If shp.Type = msoGroup Then
+        Dim grpShp As Shape
+        For Each grpShp In shp.GroupItems
+            ProcessShape grpShp
+        Next grpShp
+    Else
+        ' Agar shape ke paas text frame hai
+        If shp.HasTextFrame Then
+            If shp.TextFrame.HasText Then
+                With shp.TextFrame.TextRange
+                    For i = 1 To .Runs.Count
+                        With .Runs(i)
+                            If .Font.Name = "Arial" And .Font.Size = 32 And .Font.Bold = True Then
+                                .Font.Name = "Cambria"
+                                .Font.Size = 30
+                                .Font.Bold = True
+                            End If
+                        End With
+                    Next i
+                End With
+            End If
+        End If
+    End If
+End Sub

@@ -1,0 +1,249 @@
+Script 1       cmd run ||    UpdateTextColorToWhiteInGroupedShapes ||
+__________________________________________________________________________________________________________________________'
+
+
+Sub ReplaceFillOutlineAndUpdateTextColorInGroupedShapes()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim subShp As Shape
+    Dim fillR As Integer, fillG As Integer, fillB As Integer
+    Dim targetR As Integer, targetG As Integer, targetB As Integer
+    Dim newFillColor As Long
+    Dim newOutlineColor As Long
+    Dim newTextColor As Long
+    Dim colorThreshold As Integer
+
+    ' 🎯 Old color to look for (#FFC000)
+    targetR = 255
+    targetG = 192
+    targetB = 0
+
+    ' 🎨 New fill and outline colors
+    newFillColor = RGB(229, 95, 23)      ' #E55F17
+    newOutlineColor = RGB(255, 255, 255) ' White
+    newTextColor = RGB(255, 255, 255)    ' White text for QUESTION
+
+    colorThreshold = 15 ' +/- margin for RGB matching
+
+    ' Loop through all slides in the presentation
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+
+            ' 🎯 If it's a Grouped Shape
+            If shp.Type = msoGroup Then
+                ' Loop through all shapes inside the group
+                For Each subShp In shp.GroupItems
+                    ' Check if the shape has a fill and it's a solid color
+                    If subShp.Fill.Visible And subShp.Fill.Type = msoFillSolid Then
+                        fillR = subShp.Fill.ForeColor.RGB Mod 256
+                        fillG = (subShp.Fill.ForeColor.RGB \ 256) Mod 256
+                        fillB = (subShp.Fill.ForeColor.RGB \ 65536) Mod 256
+
+                        ' Check if the shape's color matches the target color
+                        If Abs(fillR - targetR) <= colorThreshold And _
+                           Abs(fillG - targetG) <= colorThreshold And _
+                           Abs(fillB - targetB) <= colorThreshold Then
+
+                            ' Change fill color to #E55F17
+                            subShp.Fill.ForeColor.RGB = newFillColor
+
+                            ' Change outline color (border) to white
+                            If subShp.Line.Visible Then
+                                subShp.Line.ForeColor.RGB = newOutlineColor
+                            End If
+
+                            ' Check if the shape has text and if the text is "QUESTION"
+                            If subShp.HasTextFrame Then
+                                If InStr(subShp.TextFrame.TextRange.Text, "QUESTION") > 0 Then
+                                    ' Check if the font is Poppins Black and change color to white
+                                    If subShp.TextFrame.TextRange.Font.Name = "Poppins Black" Then
+                                        subShp.TextFrame.TextRange.Font.Color.RGB = newTextColor
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                Next subShp
+
+            ' 🎯 If it's a Normal Shape (not grouped)
+            ElseIf shp.Fill.Visible And shp.Fill.Type = msoFillSolid Then
+                fillR = shp.Fill.ForeColor.RGB Mod 256
+                fillG = (shp.Fill.ForeColor.RGB \ 256) Mod 256
+                fillB = (shp.Fill.ForeColor.RGB \ 65536) Mod 256
+
+                ' Check if the shape's color matches the target color
+                If Abs(fillR - targetR) <= colorThreshold And _
+                   Abs(fillG - targetG) <= colorThreshold And _
+                   Abs(fillB - targetB) <= colorThreshold Then
+
+                    ' Change fill color to #E55F17
+                    shp.Fill.ForeColor.RGB = newFillColor
+
+                    ' Change outline color (border) to white
+                    If shp.Line.Visible Then
+                        shp.Line.ForeColor.RGB = newOutlineColor
+                    End If
+
+                    ' Check if the shape has text and if the text is "QUESTION"
+                    If shp.HasTextFrame Then
+                        If InStr(shp.TextFrame.TextRange.Text, "QUESTION") > 0 Then
+                            ' Check if the font is Poppins Black and change color to white
+                            If shp.TextFrame.TextRange.Font.Name = "Poppins Black" Then
+                                shp.TextFrame.TextRange.Font.Color.RGB = newTextColor
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+        Next shp
+    Next sld
+
+    MsgBox "🎉 All matching shapes updated: Fill → #E55F17, Outline → White, 'QUESTION' text (Poppins Black) → White!"
+End Sub
+
+
+_______________________________________________________________________________________________________________________________
+Script-2
+_______________________________________________________________________________________________________________________________;'
+
+Sub ChangeBlackGroupedTextToWhite()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim subShp As Shape
+    Dim fontColor As Long
+    Dim blackColor As Long
+    Dim whiteColor As Long
+
+    blackColor = RGB(0, 0, 0)
+    whiteColor = RGB(255, 255, 255)
+
+    ' Loop through all slides
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+
+            ' If it's a group shape
+            If shp.Type = msoGroup Then
+                For Each subShp In shp.GroupItems
+                    If subShp.HasTextFrame Then
+                        If subShp.TextFrame.HasText Then
+                            fontColor = subShp.TextFrame.TextRange.Font.Color.RGB
+                            ' If text color is black, change to white
+                            If fontColor = blackColor Then
+                                subShp.TextFrame.TextRange.Font.Color.RGB = whiteColor
+                            End If
+                        End If
+                    End If
+                Next subShp
+
+            ' If it's a normal shape with text
+            ElseIf shp.HasTextFrame Then
+                If shp.TextFrame.HasText Then
+                    fontColor = shp.TextFrame.TextRange.Font.Color.RGB
+                    If fontColor = blackColor Then
+                        shp.TextFrame.TextRange.Font.Color.RGB = whiteColor
+                    End If
+                End If
+            End If
+
+        Next shp
+    Next sld
+
+    MsgBox "🎉 All black text in grouped shapes changed to white!"
+End Sub
+
+_________________________________________________________________________________________________________________________________________
+Script:-3
+______________________________________________________________________________________________________________________________________
+
+Sub DeleteFirstShapeInGroupWithQuestionText()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim grpItems As ShapeRange
+    Dim i As Integer
+    Dim j As Integer
+    Dim hasQuestion As Boolean
+    Dim tempGroup As ShapeRange
+    Dim ungroupedShapes() As Shape
+    Dim shapeCount As Integer
+    
+    For Each sld In ActivePresentation.Slides
+        For i = sld.Shapes.Count To 1 Step -1
+            Set shp = sld.Shapes(i)
+            
+            If shp.Type = msoGroup Then
+                hasQuestion = False
+                
+                ' Check if any item in group has "Question"
+                For j = 1 To shp.GroupItems.Count
+                    If shp.GroupItems(j).HasTextFrame Then
+                        If shp.GroupItems(j).TextFrame.HasText Then
+                            If InStr(1, shp.GroupItems(j).TextFrame.TextRange.Text, "Question", vbTextCompare) > 0 Then
+                                hasQuestion = True
+                                Exit For
+                            End If
+                        End If
+                    End If
+                Next j
+                
+                ' If "Question" found, ungroup and delete first shape
+                If hasQuestion Then
+                    Set grpItems = shp.Ungroup
+                    DoEvents ' allow PowerPoint to process ungroup
+
+                    If grpItems.Count >= 1 Then
+                        grpItems(1).Delete
+                    End If
+                End If
+            End If
+        Next i
+    Next sld
+End Sub
+
+_____________________________________________________________________________________________________________________________________
+Script:-4
+______________________________________________________________________________________________________________________________________
+Sub DeleteCircularShapesInGroupsAndImagesFromOrangeGroups()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim grp As Shape
+    Dim innerShp As Shape
+    Dim i As Integer
+    Dim hasOrange As Boolean
+
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            If shp.Type = msoGroup Then
+                Set grp = shp
+                hasOrange = False
+                
+                ' Step 1: Check if group has orange shape (#E55F17)
+                For i = 1 To grp.GroupItems.Count
+                    Set innerShp = grp.GroupItems(i)
+                    If innerShp.Fill.ForeColor.RGB = RGB(229, 95, 23) Then ' #E55F17
+                        hasOrange = True
+                        Exit For
+                    End If
+                Next i
+                
+                ' Step 2: Loop through grouped shapes and delete circular shapes
+                For i = grp.GroupItems.Count To 1 Step -1
+                    Set innerShp = grp.GroupItems(i)
+                    
+                    ' Check if the shape is an ellipse (circle/oval)
+                    If innerShp.AutoShapeType = msoShapeOval Then
+                        innerShp.Delete
+                        Exit For ' Remove only one circular shape per group
+                    End If
+                    
+                    ' Step 3: If orange shape found, delete images from that group
+                    If hasOrange And innerShp.Type = msoPicture Then
+                        innerShp.Delete
+                    End If
+                Next i
+            End If
+        Next shp
+    Next sld
+
+    MsgBox "Circular shapes deleted from all groups and images deleted from groups containing orange (#E55F17) shapes!"
+End Sub

@@ -1,0 +1,41 @@
+Sub ApplySlideNumbering()
+    Dim slide As slide
+    Dim shape As shape
+    Dim slideNumber As Integer
+    Dim textBox As shape
+    Dim newText As String
+    Dim numberingColor As Long
+    
+    ' Initialize slide number
+    slideNumber = 1
+    
+    ' Set the numbering color to #FFC000 (yellow-orange)
+    numberingColor = RGB(255, 192, 0)
+    
+    ' Loop through each slide
+    For Each slide In ActivePresentation.Slides
+        ' Look for the text box with "0." in it
+        Set textBox = Nothing
+        For Each shape In slide.Shapes
+            If shape.Type = msoTextBox Then
+                If InStr(shape.TextFrame.TextRange.Text, "0.") > 0 Then
+                    Set textBox = shape
+                    Exit For
+                End If
+            End If
+        Next shape
+        
+        ' If the text box is found, update the numbering and color
+        If Not textBox Is Nothing Then
+            ' Replace "0." with the slide number (e.g. "1." for Slide 1, "2." for Slide 2, etc.)
+            newText = Replace(textBox.TextFrame.TextRange.Text, "0.", slideNumber & ".")
+            textBox.TextFrame.TextRange.Text = newText
+            
+            ' Apply the color to the numbering
+            textBox.TextFrame.TextRange.Font.Color = numberingColor
+            
+            ' Increment slide number for next slide
+            slideNumber = slideNumber + 1
+        End If
+    Next slide
+End Sub

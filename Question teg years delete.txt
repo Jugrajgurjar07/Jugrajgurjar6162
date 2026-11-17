@@ -1,0 +1,49 @@
+Sub DeleteBracketedTextWithColorFFC000_StrictFixed()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim txtRng As TextRange
+    Dim i As Integer
+    Dim startPos As Integer
+    Dim endPos As Integer
+    Dim charRange As TextRange
+    Dim allMatch As Boolean
+    Dim j As Integer
+
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            If shp.HasTextFrame Then
+                If shp.TextFrame.HasText Then
+                    Set txtRng = shp.TextFrame.TextRange
+                    i = 1
+                    Do While i <= txtRng.Length
+                        If Mid(txtRng.Text, i, 1) = "[" Then
+                            startPos = i
+                            endPos = InStr(startPos, txtRng.Text, "]")
+                            If endPos > startPos Then
+                                Set charRange = txtRng.Characters(startPos, endPos - startPos + 1)
+                                
+                                ' Check each character's color
+                                allMatch = True
+                                For j = 1 To charRange.Length
+                                    If charRange.Characters(j, 1).Font.Color.RGB <> RGB(255, 192, 0) Then
+                                        allMatch = False
+                                        Exit For
+                                    End If
+                                Next j
+                                
+                                If allMatch Then
+                                    charRange.Delete
+                                    Set txtRng = shp.TextFrame.TextRange ' Refresh text
+                                    i = startPos
+                                    GoTo NextChar ' skip i = i + 1
+                                End If
+                            End If
+                        End If
+                        i = i + 1
+NextChar:
+                    Loop
+                End If
+            End If
+        Next shp
+    Next sld
+End Sub

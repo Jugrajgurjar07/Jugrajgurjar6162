@@ -1,0 +1,63 @@
+Steps-1 :
+________________________________________________________________________________________________________________________
+Sub ColorFirstLineInTextBoxes()
+    Dim slide As slide
+    Dim shape As shape
+    Dim textFrame As textFrame
+    Dim textRange As textRange
+    
+    ' Loop through all slides
+    For Each slide In ActivePresentation.Slides
+        ' Loop through all shapes on the slide
+        For Each shape In slide.Shapes
+            ' Check if the shape contains text
+            If shape.HasTextFrame Then
+                Set textFrame = shape.TextFrame
+                If textFrame.HasText Then
+                    Set textRange = textFrame.textRange
+                    ' Change the color of the first line/paragraph to yellow (#FFFF00)
+                    If textRange.Paragraphs.Count > 0 Then
+                        textRange.Paragraphs(1).Font.Color.RGB = RGB(255, 255, 0) ' Yellow color
+                    End If
+                End If
+            End If
+        Next shape
+    Next slide
+End Sub
+______________________________________________________________________________________________________________________________
+Steps:2
+______________________________________________________________________________________________________________________________
+
+Sub ColorFirstTwoLinesInTextBoxes()
+    Dim slide As slide
+    Dim shape As shape
+    Dim textFrame As textFrame
+    Dim textRange As textRange
+    Dim i As Integer
+    
+    ' Loop through all slides
+    For Each slide In ActivePresentation.Slides
+        ' Loop through all shapes in each slide
+        For Each shape In slide.Shapes
+            ' Check if the shape has a text frame (text box)
+            If shape.HasTextFrame Then
+                Set textFrame = shape.TextFrame
+                If textFrame.HasText Then
+                    Set textRange = textFrame.textRange
+                    
+                    ' Loop through the first two lines (paragraphs) in the text box
+                    For i = 1 To 2
+                        ' Ensure the paragraph exists
+                        If i <= textRange.Paragraphs.Count Then
+                            ' Check if the paragraph contains "(1)"
+                            If InStr(1, textRange.Paragraphs(i).Text, "(1)") = 0 Then
+                                ' If "(1)" is not found, color the paragraph yellow
+                                textRange.Paragraphs(i).Font.Color.RGB = RGB(255, 255, 0)
+                            End If
+                        End If
+                    Next i
+                End If
+            End If
+        Next shape
+    Next slide
+End Sub

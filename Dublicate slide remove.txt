@@ -1,0 +1,37 @@
+Sub DeleteDuplicateSlides()
+
+    Dim slideTexts() As String
+    Dim i As Integer, j As Integer
+    Dim sld As Slide
+    Dim txt As String
+    Dim isDuplicate As Boolean
+    Dim slideIndex As Integer
+
+    ReDim slideTexts(1 To ActivePresentation.Slides.Count)
+
+    ' Save text content of each slide
+    For i = 1 To ActivePresentation.Slides.Count
+        txt = ""
+        For Each shape In ActivePresentation.Slides(i).Shapes
+            If shape.HasTextFrame Then
+                If shape.TextFrame.HasText Then
+                    txt = txt & shape.TextFrame.TextRange.Text
+                End If
+            End If
+        Next
+        slideTexts(i) = txt
+    Next i
+
+    ' Compare each slide with others
+    For i = ActivePresentation.Slides.Count To 1 Step -1
+        For j = 1 To i - 1
+            If Trim(slideTexts(i)) = Trim(slideTexts(j)) Then
+                ActivePresentation.Slides(i).Delete
+                Exit For
+            End If
+        Next j
+    Next i
+
+    MsgBox "Duplicate slides deleted!", vbInformation
+
+End Sub

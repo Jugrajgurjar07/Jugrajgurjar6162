@@ -1,0 +1,32 @@
+Sub ResizeShapesToFitText()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim subShp As Shape
+
+    ' Loop through all slides
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            Call ResizeIfTextShape(shp)
+            
+            ' Check grouped shapes
+            If shp.Type = msoGroup Then
+                For Each subShp In shp.GroupItems
+                    Call ResizeIfTextShape(subShp)
+                Next subShp
+            End If
+        Next shp
+    Next sld
+End Sub
+
+Sub ResizeIfTextShape(ByRef shp As Shape)
+    On Error Resume Next
+    If shp.HasTextFrame Then
+        If shp.TextFrame.HasText Then
+            With shp.TextFrame2
+                .WordWrap = msoFalse ' Prevent breaking lines
+                .AutoSize = msoAutoSizeShapeToFitText ' Resize shape to fit text
+            End With
+        End If
+    End If
+    On Error GoTo 0
+End Sub

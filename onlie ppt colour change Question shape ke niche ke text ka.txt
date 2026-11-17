@@ -1,0 +1,38 @@
+Sub ChangeTextColorOnlyIfQuestionExists()
+
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim questionFound As Boolean
+
+    For Each sld In ActivePresentation.Slides
+        questionFound = False
+
+        ' Pehle check karo ki slide me "Question" text hai ya nahi
+        For Each shp In sld.Shapes
+            If shp.HasTextFrame Then
+                If shp.TextFrame.HasText Then
+                    If Trim(shp.TextFrame.TextRange.Text) = "Question" Then
+                        questionFound = True
+                        Exit For
+                    End If
+                End If
+            End If
+        Next shp
+
+        ' Agar Question mila to us slide me color change karo (Question ke alawa sabka)
+        If questionFound Then
+            For Each shp In sld.Shapes
+                If shp.HasTextFrame Then
+                    If shp.TextFrame.HasText Then
+                        If Trim(shp.TextFrame.TextRange.Text) <> "Question" Then
+                            shp.TextFrame.TextRange.Font.Color.RGB = RGB(0, 242, 254)
+                        End If
+                    End If
+                End If
+            Next shp
+        End If
+    Next sld
+
+    MsgBox "Color updated on slides where 'Question' is present.", vbInformation
+
+End Sub

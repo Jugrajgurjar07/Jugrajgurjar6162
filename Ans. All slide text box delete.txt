@@ -1,0 +1,53 @@
+Sub DeleteAnsTextBoxes()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim i As Integer
+    Dim txt As String
+
+    For Each sld In ActivePresentation.Slides
+        For i = sld.Shapes.Count To 1 Step -1
+            Set shp = sld.Shapes(i)
+            
+            ' Check if the shape has text
+            If shp.HasTextFrame Then
+                If shp.TextFrame.HasText Then
+                    txt = shp.TextFrame.TextRange.Text
+                    
+                    ' Check if text contains "Ans."
+                    If InStr(1, txt, "Ans.", vbTextCompare) > 0 Then
+                        shp.Delete
+                    End If
+                End If
+            End If
+        Next i
+    Next sld
+End Sub
+
+
+____________________________________________________________________________________
+script-2   only text delete 
+
+
+Sub RemoveAnswerTextFromSlides()
+    Dim sld As Slide
+    Dim shp As Shape
+    Dim startPos As Long
+    Dim txt As String
+    
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            If shp.HasTextFrame Then
+                If shp.TextFrame.HasText Then
+                    txt = shp.TextFrame.TextRange.Text
+                    startPos = InStr(txt, "Ans.")
+                    If startPos > 0 Then
+                        ' Keep text before "Ans.", delete everything from "Ans." to end
+                        shp.TextFrame.TextRange.Text = Left(txt, startPos - 1)
+                    End If
+                End If
+            End If
+        Next shp
+    Next sld
+    
+    MsgBox "Done! 'Ans.' se leke end tak ka text delete ho gaya."
+End Sub

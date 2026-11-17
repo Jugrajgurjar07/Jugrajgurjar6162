@@ -1,0 +1,28 @@
+Slide Ans. remove 
+
+
+Sub RemoveAnswerBoxes()
+    Dim slide As slide
+    Dim shape As shape
+    Dim i As Integer
+    
+    ' Loop through all slides in the presentation
+    For Each slide In ActivePresentation.Slides
+        ' Loop through each shape in the slide
+        For i = slide.Shapes.Count To 1 Step -1
+            Set shape = slide.Shapes(i)
+            
+            ' Check if the shape has the word "Ans." in its text
+            If shape.HasTextFrame Then
+                If shape.TextFrame.HasText Then
+                    If InStr(1, shape.TextFrame.TextRange.Text, "Ans.", vbTextCompare) > 0 Then
+                        shape.Delete
+                    End If
+                End If
+            End If
+        Next i
+    Next slide
+End Sub
+
+
+_________________________________________________________________________________________________________

@@ -1,0 +1,30 @@
+Sub ApplyTabsToSelectedParagraphs()
+    Dim para As Paragraph
+    Dim tabStops As TabStops
+
+    ' Check if user has selected something
+    If Selection.Range.Paragraphs.Count = 0 Then
+        MsgBox "Please select the paragraph(s) you want to apply tab stops to.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Loop through selected paragraphs
+    For Each para In Selection.Range.Paragraphs
+        Set tabStops = para.TabStops
+        tabStops.ClearAll
+
+        tabStops.Add Position:=InchesToPoints(0.5), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(0.8), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(1.13), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(1.5), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(1.88), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(2), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(2.3), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(3.5), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(3.8), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(5), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+        tabStops.Add Position:=InchesToPoints(5.3), Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Next para
+
+    MsgBox "Tabs applied to selected paragraph(s).", vbInformation
+End Sub

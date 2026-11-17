@@ -1,0 +1,26 @@
+Slide text remove 
+
+
+Sub RemoveSlideText()
+    Dim slide As slide
+    Dim shape As shape
+    
+    ' Loop through all slides in the presentation
+    For Each slide In ActivePresentation.Slides
+        ' Loop through all shapes in the slide
+        For Each shape In slide.Shapes
+            ' Check if the shape has text and contains "Slide"
+            If shape.HasTextFrame Then
+                If shape.TextFrame.HasText Then
+                    If InStr(shape.TextFrame.TextRange.Text, "Slide") > 0 Then
+                        ' Remove the shape (text box) containing "Slide"
+                        shape.Delete
+                    End If
+                End If
+            End If
+        Next shape
+    Next slide
+End Sub
+
+
+_________________________________________________________________________________________________________

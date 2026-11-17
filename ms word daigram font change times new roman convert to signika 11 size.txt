@@ -1,0 +1,536 @@
+Method-1 old diagram working hoga
+___________________________________________________________________________________________________________________________
+Option Explicit
+
+Sub ALL_DIAGRAMS_TNR_TO_SIGNIKA11()
+
+    Dim mainDoc As Document
+    Dim ils As InlineShape
+    Dim shp As Shape
+    Dim totalObjects As Long
+    Dim totalChanged As Long
+
+    Set mainDoc = ActiveDocument
+
+    Application.ScreenUpdating = False
+    Application.DisplayAlerts = False
+
+    '====================================================
+    ' INLINE EMBEDDED OBJECTS
+    '====================================================
+
+    For Each ils In mainDoc.InlineShapes
+
+        If ils.Type = wdInlineShapeEmbeddedOLEObject Then
+
+            If IsWordPictureObject(ils.OLEFormat) Then
+
+                totalObjects = totalObjects + 1
+
+                totalChanged = totalChanged + _
+                    ProcessEmbeddedPicture(ils.OLEFormat, mainDoc)
+
+            End If
+
+        End If
+
+    Next ils
+
+
+    '====================================================
+    ' FLOATING EMBEDDED OBJECTS
+    '====================================================
+
+    For Each shp In mainDoc.Shapes
+
+        If shp.Type = msoEmbeddedOLEObject Then
+
+            If IsWordPictureObject(shp.OLEFormat) Then
+
+                totalObjects = totalObjects + 1
+
+                totalChanged = totalChanged + _
+                    ProcessEmbeddedPicture(shp.OLEFormat, mainDoc)
+
+            End If
+
+        End If
+
+    Next shp
+
+
+    mainDoc.Activate
+
+    Application.DisplayAlerts = True
+    Application.ScreenUpdating = True
+
+    MsgBox _
+        "FONT CONVERSION COMPLETE" & vbCrLf & vbCrLf & _
+        "Diagrams processed: " & totalObjects & vbCrLf & _
+        "Text boxes changed: " & totalChanged & vbCrLf & vbCrLf & _
+        "Times New Roman  →  Signika" & vbCrLf & _
+        "Size  →  11 pt" & vbCrLf & vbCrLf & _
+        "Other fonts were NOT changed.", _
+        vbInformation, "Completed"
+
+End Sub
+
+
+'========================================================
+' CHECK WORD PICTURE OLE
+'========================================================
+
+Function IsWordPictureObject(ByVal ole As OLEFormat) As Boolean
+
+    Dim p As String
+
+    On Error Resume Next
+
+    p = LCase(ole.ProgID)
+
+    If InStr(p, "word.picture") > 0 Then
+        IsWordPictureObject = True
+    End If
+
+    On Error GoTo 0
+
+End Function
+
+
+'========================================================
+' OPEN + PROCESS ONE EMBEDDED DIAGRAM
+'========================================================
+
+Function ProcessEmbeddedPicture( _
+    ByVal ole As OLEFormat, _
+    ByVal mainDoc As Document) As Long
+
+    Dim embeddedDoc As Document
+    Dim beforeCount As Long
+    Dim afterCount As Long
+    Dim d As Document
+    Dim total As Long
+
+    On Error GoTo SafeExit
+
+    beforeCount = Documents.Count
+
+    'Open embedded Word picture
+    ole.Edit
+
+    DoEvents
+
+    'Give Word time to open it
+    WaitShort
+
+
+    '----------------------------------------------------
+    ' Try to get embedded document
+    '----------------------------------------------------
+
+    On Error Resume Next
+    Set embeddedDoc = ole.Object
+    On Error GoTo SafeExit
+
+
+    '----------------------------------------------------
+    ' If direct object is unavailable,
+    ' find newly opened document
+    '----------------------------------------------------
+
+    If embeddedDoc Is Nothing Then
+
+        afterCount = Documents.Count
+
+        If afterCount > beforeCount Then
+
+            For Each d In Documents
+
+                If Not d Is mainDoc Then
+
+                    If InStr(1, d.Name, "Picture", vbTextCompare) > 0 Then
+
+                        Set embeddedDoc = d
+                        Exit For
+
+                    End If
+
+                End If
+
+            Next d
+
+        End If
+
+    End If
+
+
+    '----------------------------------------------------
+    ' PROCESS EMBEDDED DOCUMENT
+    '----------------------------------------------------
+
+    If Not embeddedDoc Is Nothing Then
+
+        total = ProcessAllDiagramShapes(embeddedDoc)
+
+        embeddedDoc.Save
+
+    End If
+
+
+SafeExit:
+
+    On Error Resume Next
+
+    mainDoc.Activate
+
+    ProcessEmbeddedPicture = total
+
+End Function
+
+
+'========================================================
+' PROCESS ALL SHAPES IN ONE DIAGRAM
+'========================================================
+
+Function ProcessAllDiagramShapes(ByVal d As Document) As Long
+
+    Dim shp As Shape
+    Dim total As Long
+
+    On Error Resume Next
+
+    For Each shp In d.Shapes
+
+        total = total + ProcessOneShape(shp)
+
+    Next shp
+
+    On Error GoTo 0
+
+    ProcessAllDiagramShapes = total
+
+End Function
+
+
+'========================================================
+' PROCESS ONE SHAPE
+'========================================================
+
+Function ProcessOneShape(ByVal shp As Shape) As Long
+
+    Dim total As Long
+    Dim i As Long
+    Dim txt As Object
+
+    On Error Resume Next
+
+
+    '----------------------------------------------------
+    ' TEXT BOX / NORMAL SHAPE WITH TEXT
+    '----------------------------------------------------
+
+    If shp.TextFrame.HasText Then
+
+        Set txt = shp.TextFrame.TextRange
+
+        total = total + ChangeTNRText(txt)
+
+    End If
+
+
+    '----------------------------------------------------
+    ' GROUP
+    '----------------------------------------------------
+
+    If shp.Type = msoGroup Then
+
+        For i = 1 To shp.GroupItems.Count
+
+            total = total + _
+                ProcessOneShape(shp.GroupItems(i))
+
+        Next i
+
+    End If
+
+
+    '----------------------------------------------------
+    ' DRAWING CANVAS
+    '----------------------------------------------------
+
+    If shp.Type = msoCanvas Then
+
+        For i = 1 To shp.CanvasItems.Count
+
+            total = total + _
+                ProcessOneShape(shp.CanvasItems(i))
+
+        Next i
+
+    End If
+
+
+    On Error GoTo 0
+
+    ProcessOneShape = total
+
+End Function
+
+
+'========================================================
+' CHANGE ONLY TIMES NEW ROMAN
+'========================================================
+
+Function ChangeTNRText(ByVal txt As Object) As Long
+
+    Dim i As Long
+    Dim ch As Object
+    Dim fontName As String
+    Dim total As Long
+
+    On Error Resume Next
+
+    'Process each character separately
+    For i = 1 To txt.Characters.Count
+
+        Set ch = txt.Characters(i)
+
+        fontName = ""
+
+        Err.Clear
+        fontName = Trim(CStr(ch.Font.Name))
+
+        If Err.Number = 0 Then
+
+            If StrComp(fontName, _
+                       "Times New Roman", _
+                       vbTextCompare) = 0 Then
+
+                Err.Clear
+
+                ch.Font.Name = "Signika"
+
+                If Err.Number = 0 Then
+
+                    ch.Font.Size = 11
+
+                    If Err.Number = 0 Then
+                        total = total + 1
+                    End If
+
+                End If
+
+            End If
+
+        End If
+
+    Next i
+
+    On Error GoTo 0
+
+    ChangeTNRText = total
+
+End Function
+
+
+'========================================================
+' SHORT WAIT
+'========================================================
+
+Sub WaitShort()
+
+    Dim t As Double
+
+    t = Timer + 0.5
+
+    Do While Timer < t
+
+        DoEvents
+
+    Loop
+
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+________________________________________________________________________________________________________
+New wale per working any daigram
+____________________________________________________________________________________________________________________________
+Option Explicit
+
+Sub ChangeOnlyTNRtoSignika11_InAllDiagrams()
+
+    Dim shp As Shape
+    Dim ils As InlineShape
+    Dim embeddedDoc As Document
+    Dim totalChanged As Long
+
+    Application.ScreenUpdating = False
+
+    ' ===== Floating Embedded Objects =====
+    For Each shp In ActiveDocument.Shapes
+
+        If shp.Type = msoEmbeddedOLEObject Then
+
+            Set embeddedDoc = Nothing
+
+            On Error Resume Next
+            Set embeddedDoc = shp.OLEFormat.Object
+            On Error GoTo 0
+
+            If Not embeddedDoc Is Nothing Then
+                totalChanged = totalChanged + _
+                    ProcessEmbeddedDocumentShapes(embeddedDoc)
+            End If
+
+        End If
+
+    Next shp
+
+
+    ' ===== Inline Embedded Objects =====
+    For Each ils In ActiveDocument.InlineShapes
+
+        If ils.Type = wdInlineShapeEmbeddedOLEObject Then
+
+            Set embeddedDoc = Nothing
+
+            On Error Resume Next
+            Set embeddedDoc = ils.OLEFormat.Object
+            On Error GoTo 0
+
+            If Not embeddedDoc Is Nothing Then
+                totalChanged = totalChanged + _
+                    ProcessEmbeddedDocumentShapes(embeddedDoc)
+            End If
+
+        End If
+
+    Next ils
+
+    Application.ScreenUpdating = True
+
+    MsgBox totalChanged & _
+        " text characters changed." & vbCrLf & vbCrLf & _
+        "Times New Roman → Signika" & vbCrLf & _
+        "Size → 11 pt", _
+        vbInformation, "Completed"
+
+End Sub
+
+
+' =========================================================
+' Process every Shape inside the Embedded Word Document
+' =========================================================
+
+Function ProcessEmbeddedDocumentShapes(ByVal doc As Document) As Long
+
+    Dim shp As Shape
+    Dim count As Long
+
+    On Error Resume Next
+
+    For Each shp In doc.Shapes
+        count = count + ProcessShape(shp)
+    Next shp
+
+    On Error GoTo 0
+
+    ProcessEmbeddedDocumentShapes = count
+
+End Function
+
+
+' =========================================================
+' Process individual Shape
+' =========================================================
+
+Function ProcessShape(ByVal shp As Shape) As Long
+
+    Dim count As Long
+    Dim i As Long
+
+    On Error Resume Next
+
+    ' -----------------------------------------
+    ' Normal Shape / Text Box
+    ' -----------------------------------------
+
+    If shp.TextFrame.HasText Then
+        count = count + ChangeTNRCharacters(shp.TextFrame.TextRange)
+    End If
+
+
+    ' -----------------------------------------
+    ' Drawing Canvas
+    ' -----------------------------------------
+
+    If shp.Type = msoCanvas Then
+
+        For i = 1 To shp.CanvasItems.Count
+            count = count + ProcessShape(shp.CanvasItems(i))
+        Next i
+
+    End If
+
+
+    ' -----------------------------------------
+    ' Grouped Shapes
+    ' -----------------------------------------
+
+    If shp.Type = msoGroup Then
+
+        For i = 1 To shp.GroupItems.Count
+            count = count + ProcessShape(shp.GroupItems(i))
+        Next i
+
+    End If
+
+    On Error GoTo 0
+
+    ProcessShape = count
+
+End Function
+
+
+' =========================================================
+' Change ONLY Times New Roman characters
+' =========================================================
+
+Function ChangeTNRCharacters(ByVal txt As Range) As Long
+
+    Dim ch As Range
+    Dim i As Long
+    Dim count As Long
+
+    On Error Resume Next
+
+    For i = 1 To txt.Characters.Count
+
+        Set ch = txt.Characters(i)
+
+        ' ONLY Times New Roman
+        If LCase(Trim(ch.Font.Name)) = "times new roman" Then
+
+            ch.Font.Name = "Signika"
+            ch.Font.Size = 11
+
+            count = count + 1
+
+        End If
+
+    Next i
+
+    On Error GoTo 0
+
+    ChangeTNRCharacters = count
+
+End Function

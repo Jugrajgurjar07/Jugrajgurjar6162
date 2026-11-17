@@ -1,0 +1,51 @@
+Sub CopyGroupedQuestionTagFromSlide1ToAllSlides()
+    Dim pres As Presentation
+    Dim srcSlide As Slide
+    Dim destSlide As Slide
+    Dim shp As Shape
+    Dim grpShape As Shape
+    Dim questionGroup As Shape
+    Dim i As Integer
+    Dim copiedShapes As ShapeRange
+    Dim isFound As Boolean
+
+    Set pres = ActivePresentation
+    Set srcSlide = pres.Slides(1)
+
+    ' Step 1: Find the grouped shape containing "#QUESTION"
+    For Each shp In srcSlide.Shapes
+        If shp.Type = msoGroup Then
+            For i = 1 To shp.GroupItems.Count
+                If shp.GroupItems(i).HasTextFrame Then
+                    If Trim(shp.GroupItems(i).TextFrame.TextRange.Text) = "#QUESTION" Then
+                        Set questionGroup = shp
+                        isFound = True
+                        Exit For
+                    End If
+                End If
+            Next i
+        End If
+        If isFound Then Exit For
+    Next shp
+
+    If questionGroup Is Nothing Then
+        MsgBox "? Grouped shape with '#QUESTION' not found on Slide 1!", vbCritical
+        Exit Sub
+    End If
+
+    ' Step 2: Copy and paste to all other slides
+    questionGroup.Copy
+
+    For Each destSlide In pres.Slides
+        If destSlide.SlideIndex <> 1 Then
+            destSlide.Select
+            pres.Windows(1).View.GotoSlide destSlide.SlideIndex
+            Set copiedShapes = destSlide.Shapes.Paste
+            copiedShapes.Left = questionGroup.Left
+            copiedShapes.Top = questionGroup.Top
+        End If
+    Next destSlide
+
+    MsgBox "? '#QUESTION' tag copied to all slides successfully!", vbInformation
+End Sub
+

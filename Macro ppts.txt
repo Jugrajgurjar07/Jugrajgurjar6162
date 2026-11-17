@@ -1,0 +1,94 @@
+
+____________________________________________________________________________________________________________________________________________
+
+						𝗢𝗻𝗹𝘆 𝗦𝗹𝗲𝗰𝘁𝗲𝗱 𝘁𝗲𝘅𝘁 𝗰𝗵𝗮𝗻𝗴𝗲 𝗖𝗼𝗹𝗼𝗿 𝗹𝗶𝗸𝗲 #𝗤.
+____________________________________________________________________________________________________________________________________________
+
+Sub ChangeQTextColorInAllSlides()
+    Dim slide As slide
+    Dim shape As shape
+    Dim newColor As Long
+    Dim txtRange As TextRange
+    Dim startPos As Long
+
+    ' Set the color you want to change to (Red in this case)
+    newColor = RGB(255, 192, 0) ' Orange color
+    
+    ' Loop through each slide
+    For Each slide In ActivePresentation.Slides
+        ' Loop through each shape on the slide
+        For Each shape In slide.Shapes
+            ' Check if the shape has text
+            If shape.HasTextFrame Then
+                If shape.TextFrame.HasText Then
+                    ' Loop through each text segment in the shape
+                    Set txtRange = shape.TextFrame.TextRange
+                    startPos = 1
+                    Do
+                        ' Find the position of #Q.
+                        startPos = InStr(startPos, txtRange.Text, "#Q.")
+                        
+                        ' If #Q. is found, change its color
+                        If startPos > 0 Then
+                            txtRange.Characters(startPos, 3).Font.Color = newColor ' 3 is the length of #Q.
+                            startPos = startPos + 3 ' Move past the current #Q.
+                        End If
+                    Loop While startPos > 0 ' Continue searching for more #Q. in the text
+                End If
+            End If
+        Next shape
+    Next slide
+End Sub
+
+____________________________________________________________________________________________________________________________________________
+
+						𝗔𝗹𝗹 𝗦𝗹𝗶𝗱𝗲 𝘁𝗲𝘅𝘁 𝗖𝗹𝗼𝘂𝗿 𝗰𝗵𝗮𝗻𝗴𝗲 𝗢𝗿𝗮𝗴𝗻𝗲
+____________________________________________________________________________________________________________________________________________
+
+Public Sub ChangeFontSize()
+    Dim sld As PowerPoint.Slide
+    Dim shp As PowerPoint.Shape
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            If shp.HasTextFrame = True Then
+                If shp.TextFrame.HasText = True Then
+                If shp.TextFrame.TextRange.Font.Color.RGB = RGB(255, 192, 0) Then
+                    shp.TextFrame.TextRange.Font.Color.RGB = RGB(255, 255, 255)
+                End If
+            End If
+            End If
+Next shp
+Next sld
+End Sub
+
+____________________________________________________________________________________________________________________________________________
+
+						𝗔𝗹𝗹 𝗦𝗹𝗶𝗱𝗲 𝘁𝗲𝘅𝘁 𝗦𝗶𝘇𝗲 𝗰𝗵𝗮𝗻𝗴𝗲
+____________________________________________________________________________________________________________________________________________
+
+Public Sub ChangeFontSize()
+    Dim sld As PowerPoint.Slide
+    Dim shp As PowerPoint.Shape
+    For Each sld In ActivePresentation.Slides
+        For Each shp In sld.Shapes
+            If shp.HasTextFrame = True Then
+                If shp.TextFrame.HasText = True Then
+                If shp.TextFrame.TextRange.Font.Size = 28 Then
+                    shp.TextFrame.TextRange.Font.Size = 18
+                End If
+            End If
+            End If
+Next shp
+Next sld
+End Sub
+
+____________________________________________________________________________________________________________________________________________
+
+                                                 𝗔𝗹𝗹 𝗩𝗲𝗿𝘆 𝘂𝘀𝗲 𝗙𝘂𝗹𝗹 𝘀𝗰𝗿𝗶𝗽𝘁𝘀
+____________________________________________________________________________________________________________________________________________
+
+
+
+
+
+

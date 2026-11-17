@@ -1,0 +1,551 @@
+Sub Macro1_formating()
+'
+' Macro1_formating Macro
+'
+'
+    Selection.WholeStory
+    With ActiveDocument.Styles(wdStyleNormal).Font
+        If .NameFarEast = .NameAscii Then
+            .NameAscii = ""
+        End If
+        .NameFarEast = ""
+    End With
+    With ActiveDocument.PageSetup
+        .LineNumbering.Active = False
+        .Orientation = wdOrientPortrait
+        .TopMargin = InchesToPoints(0.5)
+        .BottomMargin = InchesToPoints(0.5)
+        .LeftMargin = InchesToPoints(0.5)
+        .RightMargin = InchesToPoints(0.5)
+        .Gutter = InchesToPoints(0)
+        .HeaderDistance = InchesToPoints(0.5)
+        .FooterDistance = InchesToPoints(0)
+        .PageWidth = InchesToPoints(8.27)
+        .PageHeight = InchesToPoints(11.69)
+        .FirstPageTray = wdPrinterDefaultBin
+        .OtherPagesTray = wdPrinterDefaultBin
+        .SectionStart = wdSectionNewPage
+        .OddAndEvenPagesHeaderFooter = False
+        .DifferentFirstPageHeaderFooter = True
+        .VerticalAlignment = wdAlignVerticalTop
+        .SuppressEndnotes = False
+        .MirrorMargins = False
+        .TwoPagesOnOne = False
+        .BookFoldPrinting = False
+        .BookFoldRevPrinting = False
+        .BookFoldPrintingSheets = 1
+        .GutterPos = wdGutterPosLeft
+    End With
+    Selection.WholeStory
+    Selection.Font.Size = 10
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.Font
+        .Name = ""
+        .Spacing = 0
+    End With
+    Selection.MoveUp Unit:=wdLine, Count:=1
+    With ActiveDocument.Styles(wdStyleNormal).Font
+        .Name = "Signika"
+        .Size = 11
+        .Bold = False
+        .Italic = False
+        .Underline = wdUnderlineNone
+        .UnderlineColor = wdColorAutomatic
+        .StrikeThrough = False
+        .DoubleStrikeThrough = False
+        .Outline = False
+        .Emboss = False
+        .Shadow = False
+        .Hidden = False
+        .SmallCaps = False
+        .AllCaps = False
+        .Color = wdColorAutomatic
+        .Engrave = False
+        .Superscript = False
+        .Subscript = False
+        .Spacing = 0
+        .Scaling = 100
+        .Position = 0
+        .Kerning = 0
+        .Animation = wdAnimationNone
+        .Ligatures = wdLigaturesNone
+        .NumberSpacing = wdNumberSpacingDefault
+        .NumberForm = wdNumberFormDefault
+        .StylisticSet = wdStylisticSetDefault
+        .ContextualAlternates = 0
+    End With
+    Selection.Find.ClearFormatting
+    With Selection.Find.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphLeft
+    End With
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphJustify
+    End With
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    With Selection.Find.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphJustify
+    End With
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.39)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphJustify
+        .FirstLineIndent = InchesToPoints(-0.39)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^l"
+        .Replacement.Text = "^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.39)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.2)
+        .FirstLineIndent = InchesToPoints(-0.39)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+    End With
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+    End With
+    Selection.ParagraphFormat.TabStops.ClearAll
+    ActiveDocument.DefaultTabStop = InchesToPoints(0.5)
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+    End With
+    Selection.ParagraphFormat.TabStops.ClearAll
+    ActiveDocument.DefaultTabStop = InchesToPoints(0.5)
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(0.39), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(0.69), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(1.94), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(2.25), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.HomeKey Unit:=wdLine
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p(2)"
+        .Replacement.Text = "^t(2)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "^p(4)"
+        .Replacement.Text = "^t(4)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(1) "
+        .Replacement.Text = "(1)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(2) "
+        .Replacement.Text = "(2)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(3) "
+        .Replacement.Text = "(3)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(4) "
+        .Replacement.Text = "(4)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(1)^t"
+        .Replacement.Text = "^t(1)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(2)^t"
+        .Replacement.Text = "(2)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(3)^t"
+        .Replacement.Text = "^t(3)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(4)^t"
+        .Replacement.Text = "(4)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^t^t"
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p^p^p"
+        .Replacement.Text = "^p^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^t "
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = " ^t"
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(1)"
+        .Replacement.Text = "(1)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(2)"
+        .Replacement.Text = "(2)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(3)"
+        .Replacement.Text = "(3)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(4)"
+        .Replacement.Text = "(4)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.ParagraphFormat
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.2)
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+    End With
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.39)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBefore = 1
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 1
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.2)
+        .Alignment = wdAlignParagraphJustify
+        .WidowControl = True
+        .KeepWithNext = False
+        .KeepTogether = False
+        .PageBreakBefore = False
+        .NoLineNumber = False
+        .Hyphenation = True
+        .FirstLineIndent = InchesToPoints(-0.39)
+        .OutlineLevel = wdOutlineLevelBodyText
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+        .MirrorIndents = False
+        .TextboxTightWrap = wdTightNone
+        .CollapsedByDefault = False
+    End With
+End Sub

@@ -1,0 +1,31 @@
+Sub ReplaceOptionSpacesWithTab()
+    Dim findText As String
+    Dim replaceText As String
+    Dim i As Integer
+    Dim letters As Variant
+    letters = Array("A", "B", "C", "D") ' Aap chaho to aur bhi add kar sakte ho
+    
+    For i = 0 To UBound(letters)
+        findText = "(" & letters(i) & ") "
+        replaceText = "(" & letters(i) & ")" & vbTab
+        
+        With Selection.Find
+            .ClearFormatting
+            .Replacement.ClearFormatting
+            .Text = findText
+            .Replacement.Text = replaceText
+            .Forward = True
+            .Wrap = wdFindContinue
+            .Format = False
+            .MatchCase = False
+            .MatchWholeWord = False
+            .MatchWildcards = False
+            .MatchSoundsLike = False
+            .MatchAllWordForms = False
+        End With
+        
+        Selection.Find.Execute Replace:=wdReplaceAll
+    Next i
+    
+    MsgBox "Options updated with tab!"
+End Sub
