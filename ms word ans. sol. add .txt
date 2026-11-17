@@ -1,0 +1,45 @@
+Option Explicit
+
+Sub AddAnswerAndSolution_AfterOptions()
+
+    Dim para As Paragraph
+    Dim rng As Range
+    Dim txt As String
+    Dim found As Boolean
+
+    For Each para In ActiveDocument.Paragraphs
+
+        txt = para.Range.Text
+        found = False
+
+        '-----------------------------------------
+        ' Check for D) or 4) option
+        '-----------------------------------------
+        If InStr(1, txt, "D)", vbTextCompare) > 0 Then
+            found = True
+        ElseIf InStr(1, txt, "4)", vbTextCompare) > 0 Then
+            found = True
+        End If
+
+        If found Then
+
+            ' Already added hai to dobara mat add karo
+            If InStr(1, txt, "Ans.", vbTextCompare) = 0 Then
+
+                ' Paragraph ke bilkul END par jao
+                Set rng = para.Range
+                rng.End = rng.End - 1
+                rng.Collapse wdCollapseEnd
+
+                ' EXACT FORMAT
+                rng.InsertAfter vbCr & "Ans." & vbTab & "()" & vbCr & "Sol."
+
+            End If
+
+        End If
+
+    Next para
+
+    MsgBox "Ans. () and Sol. added successfully.", vbInformation
+
+End Sub

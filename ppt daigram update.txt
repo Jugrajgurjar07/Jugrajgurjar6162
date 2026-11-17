@@ -1,0 +1,103 @@
+Sub FormatPhysicsDiagram()
+    Dim shp As Shape
+    
+    ' Check karein shape select hai ya nahi
+    If ActiveWindow.Selection.Type <> ppSelectionShapes Then
+        MsgBox "Kripya diagram ko select karke macro run karein!", vbExclamation, "Selection Missing"
+        Exit Sub
+    End If
+    
+    ' Error handling aur execution
+    On Error Resume Next
+    
+    Dim sRange As ShapeRange
+    Set sRange = ActiveWindow.Selection.ShapeRange
+    
+    For Each shp In sRange
+        ProcessDiagramShape shp
+    Next shp
+    
+    MsgBox "Diagram perfect format ho gaya!", vbInformation, "Success"
+End Sub
+
+Sub ProcessDiagramShape(shp As Shape)
+    Dim subShp As Shape
+    Dim i As Long
+    Dim hasArrow As Boolean
+    
+    ' 1. Grouped shapes ko handle karein (Recursion)
+    If shp.Type = msoGroup Then
+        For Each subShp In shp.GroupItems
+            ProcessDiagramShape subShp
+        Next subShp
+        Exit Sub
+    End If
+    
+    ' 2. Check karein ki kya ye Arrow line hai
+    hasArrow = False
+    If shp.Line.Visible = msoTrue Then
+        If shp.Line.BeginArrowheadStyle <> msoArrowheadNone Or _
+           shp.Line.EndArrowheadStyle <> msoArrowheadNone Then
+            hasArrow = True
+        End If
+    End If
+    
+    ' 3. Outlines, Colors aur Arrow Size handle karein
+    If shp.Type = msoTextBox Or (shp.HasTextFrame And Not hasArrow And shp.Width < 100 And shp.Line.Visible = msoFalse) Then
+        ' Pure Textbox ka outline hatayein
+        shp.Line.Visible = msoFalse
+    ElseIf hasArrow Then
+        ' Direction Arrows (Velocity / Acceleration) -> Cyan/Sky Blue Color
+        shp.Line.Visible = msoTrue
+        shp.Line.Weight = 4.5
+        shp.Line.ForeColor.RGB = RGB(0, 176, 240) ' Cyan Blue
+        
+        ' Arrow Size 9 (Largest Width & Length)
+        If shp.Line.EndArrowheadStyle <> msoArrowheadNone Then
+            shp.Line.EndArrowheadWidth = msoArrowheadWide
+            shp.Line.EndArrowheadLength = msoArrowheadLong
+        End If
+        If shp.Line.BeginArrowheadStyle <> msoArrowheadNone Then
+            shp.Line.BeginArrowheadWidth = msoArrowheadWide
+            shp.Line.BeginArrowheadLength = msoArrowheadLong
+        End If
+    Else
+        ' Baaki sabhi Diagram lines aur Blocks (A, B, C, Pulley, Table) -> Yellow Color
+        If shp.Line.Visible = msoTrue Then
+            shp.Line.Weight = 4.5
+            shp.Line.ForeColor.RGB = RGB(255, 255, 0) ' Bright Yellow
+        End If
+    End If
+    
+    ' 4. Text Formatting (Taaki diagram na bigde)
+    If shp.HasTextFrame Then
+        If shp.TextFrame2.HasText Then
+            With shp.TextFrame2
+                ' IMPORTANT: Shape ko stretch hone aur bigadne se bachane ke liye:
+                .WordWrap = msoFalse              ' Text ko line todne se roke
+                .AutoSize = msoAutoSizeNone        ' Shape ko failne se roke
+                .MarginLeft = 0
+                .MarginRight = 0
+                .MarginTop = 0
+                .MarginBottom = 0
+                
+                ' Font size 60 aur White Color
+                .TextRange.Font.Size = 60
+                .TextRange.Font.Fill.ForeColor.RGB = RGB(255, 255, 255) ' Pure White Text
+                
+                ' Symbol ko chhodkar Cambria font lagayein
+                For i = 1 To .TextRange.Runs.Count
+                    Dim currentFont As String
+                    currentFont = .TextRange.Runs(i).Font.Name
+                    
+                    If InStr(1, currentFont, "Symbol", vbTextCompare) = 0 And _
+                       InStr(1, currentFont, "Wingdings", vbTextCompare) = 0 And _
+                       InStr(1, currentFont, "MT Extra", vbTextCompare) = 0 Then
+                        .TextRange.Runs(i).Font.Name = "Cambria"
+                    End If
+                Next i
+            End With
+        End If
+    End If
+End Sub
+

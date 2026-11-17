@@ -1,0 +1,69 @@
+Sub AddAnswerAfterOption4()
+    Dim doc As Document
+    Dim i As Long, j As Long
+    Dim pText As String, checkText As String
+    Dim regStar As Object, regOpt4 As Object
+    Dim matches As Object
+    Dim ansNum As String
+    Dim nextParaText As String
+    Dim newRange As Range, ansWordRange As Range, numWordRange As Range
+    
+    Set doc = ActiveDocument
+    
+    ' Star wala option dhoondhne ke liye regex
+    Set regStar = CreateObject("VBScript.RegExp")
+    regStar.Pattern = "\(([1-4])\*\)"
+    
+    ' Option (4) dhoondhne ke liye regex
+    Set regOpt4 = CreateObject("VBScript.RegExp")
+    regOpt4.Pattern = "\(\s*4\*?\s*\)"
+    
+    ' Document ko reverse loop karenge
+    For i = doc.Paragraphs.Count To 1 Step -1
+        pText = doc.Paragraphs(i).Range.Text
+        
+        If regOpt4.Test(pText) Then
+            ansNum = ""
+            
+            If InStr(pText, "Ans.") = 0 Then
+                If i < doc.Paragraphs.Count Then
+                    nextParaText = doc.Paragraphs(i + 1).Range.Text
+                Else
+                    nextParaText = ""
+                End If
+                
+                If InStr(nextParaText, "Ans.") = 0 Then
+                    For j = i To 1 Step -1
+                        checkText = doc.Paragraphs(j).Range.Text
+                        If regStar.Test(checkText) Then
+                            Set matches = regStar.Execute(checkText)
+                            ansNum = matches(0).SubMatches(0)
+                            Exit For
+                        End If
+                        
+                        If j < i And (InStr(checkText, "Ans.") > 0) Then
+                            Exit For
+                        End If
+                    Next j
+                    
+                    If ansNum <> "" Then
+                        ' Option (4) ke baad nayi line add karein
+                        Set newRange = doc.Paragraphs(i).Range
+                        newRange.Collapse wdCollapseEnd
+                        newRange.Text = "Ans." & vbTab & "(" & ansNum & ")" & vbCrLf
+                        
+                        ' 1. Sirf "Ans." ko BOLD karein
+                        Set ansWordRange = doc.Range(newRange.Start, newRange.Start + 4)
+                        ansWordRange.Bold = True
+                        
+                        ' 2. Aage ka option "(X)" ko UNBOLD (Normal) karein
+                        Set numWordRange = doc.Range(newRange.Start + 4, newRange.End)
+                        numWordRange.Bold = False
+                    End If
+                End If
+            End If
+        End If
+    Next i
+    
+    MsgBox "Mene Naresh ke Gand mar le hai Aap check kr skte ho!", vbInformation
+End Sub

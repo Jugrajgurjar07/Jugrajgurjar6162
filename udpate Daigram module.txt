@@ -1,0 +1,983 @@
+Option Explicit
+
+'====================================================================
+'                    FINAL MASTER MACRO
+'====================================================================
+'
+' RUN ORDER:
+'
+' 1. BLACK ONLY DRAWING CANVAS
+' 2. BLACK DIAGRAMS + SMALL CIRCLES
+' 3. #E6FFFF -> #BFBFBF
+' 4. #F0FFFF -> #BFBFBF
+' 5. #B4FFFF -> #5A5A5A
+' 6. #96FFFF -> #808080
+' 7. #00FFFF -> #808080
+' 8. #DCFFFF -> #BFBFBF
+' 9. #C8FFFF -> #BFBFBF
+'10. #00B0F0 -> #A5A5A5
+'
+' ONLY DIAGRAMS / EMBEDDED WORD OBJECTS ARE PROCESSED.
+'
+' GROUPED + UNGROUPED SHAPES
+' DRAWING CANVAS
+' NESTED GROUPS
+' NESTED CANVAS
+' FLOATING OLE
+' INLINE OLE
+'
+'====================================================================
+
+
+Public Sub RUN_ALL_10_DIAGRAM_STEPS()
+
+    Dim oldScreen As Boolean
+    Dim oldAlerts As WdAlertLevel
+
+    On Error GoTo MASTER_ERROR
+
+    oldScreen = Application.ScreenUpdating
+    oldAlerts = Application.DisplayAlerts
+
+    Application.ScreenUpdating = False
+    Application.DisplayAlerts = wdAlertsNone
+
+
+    '============================================================
+    ' STEP 1
+    '============================================================
+
+    Application.StatusBar = "STEP 1 / 10 - Black Drawing Canvas..."
+
+    STEP_1_BLACK_CANVAS
+
+
+    '============================================================
+    ' STEP 2
+    '============================================================
+
+    Application.StatusBar = "STEP 2 / 10 - Black Diagrams + Small Circles..."
+
+    STEP_2_BLACK_DIAGRAMS
+
+
+    '============================================================
+    ' STEP 3
+    '============================================================
+
+    Application.StatusBar = "STEP 3 / 10 - #E6FFFF -> #BFBFBF..."
+
+    STEP_3_E6FFFF
+
+
+    '============================================================
+    ' STEP 4
+    '============================================================
+
+    Application.StatusBar = "STEP 4 / 10 - #F0FFFF -> #BFBFBF..."
+
+    STEP_4_F0FFFF
+
+
+    '============================================================
+    ' STEP 5
+    '============================================================
+
+    Application.StatusBar = "STEP 5 / 10 - #B4FFFF -> #5A5A5A..."
+
+    STEP_5_B4FFFF
+
+
+    '============================================================
+    ' STEP 6
+    '============================================================
+
+    Application.StatusBar = "STEP 6 / 10 - #96FFFF -> #808080..."
+
+    STEP_6_96FFFF
+
+
+    '============================================================
+    ' STEP 7
+    '============================================================
+
+    Application.StatusBar = "STEP 7 / 10 - #00FFFF -> #808080..."
+
+    STEP_7_00FFFF
+
+
+    '============================================================
+    ' STEP 8
+    '============================================================
+
+    Application.StatusBar = "STEP 8 / 10 - #DCFFFF -> #BFBFBF..."
+
+    STEP_8_DCFFFF
+
+
+    '============================================================
+    ' STEP 9
+    '============================================================
+
+    Application.StatusBar = "STEP 9 / 10 - #C8FFFF -> #BFBFBF..."
+
+    STEP_9_C8FFFF
+
+
+    '============================================================
+    ' STEP 10
+    '============================================================
+
+    Application.StatusBar = "STEP 10 / 10 - #00B0F0 -> #A5A5A5..."
+
+    STEP_10_00B0F0
+
+
+    '============================================================
+    ' FINAL SAVE
+    '============================================================
+
+    ActiveDocument.Save
+
+    Application.StatusBar = False
+    Application.DisplayAlerts = oldAlerts
+    Application.ScreenUpdating = oldScreen
+
+
+    MsgBox _
+        "ALL 10 STEPS COMPLETED SUCCESSFULLY" & vbCrLf & vbCrLf & _
+        "1. Drawing Canvas Black       DONE" & vbCrLf & _
+        "2. Diagrams + Small Circles   DONE" & vbCrLf & _
+        "3. #E6FFFF -> #BFBFBF         DONE" & vbCrLf & _
+        "4. #F0FFFF -> #BFBFBF         DONE" & vbCrLf & _
+        "5. #B4FFFF -> #5A5A5A         DONE" & vbCrLf & _
+        "6. #96FFFF -> #808080         DONE" & vbCrLf & _
+        "7. #00FFFF -> #808080         DONE" & vbCrLf & _
+        "8. #DCFFFF -> #BFBFBF         DONE" & vbCrLf & _
+        "9. #C8FFFF -> #BFBFBF         DONE" & vbCrLf & _
+        "10. #00B0F0 -> #A5A5A5       DONE" & vbCrLf & vbCrLf & _
+        "Only diagram objects were processed.", _
+        "Only diagram objects were processed.", _
+        vbInformation, _
+        "FINAL COMPLETE"
+
+    Exit Sub
+
+
+MASTER_ERROR:
+
+    Application.StatusBar = False
+    Application.DisplayAlerts = oldAlerts
+    Application.ScreenUpdating = oldScreen
+
+    MsgBox _
+        "PROCESS STOPPED" & vbCrLf & vbCrLf & _
+        "Error Number: " & Err.Number & vbCrLf & _
+        "Error: " & Err.Description, _
+        vbCritical, _
+        "ERROR"
+
+End Sub
+
+
+'====================================================================
+' STEP 1
+' BLACK ONLY DRAWING CANVAS
+'====================================================================
+
+Private Sub STEP_1_BLACK_CANVAS()
+
+    ProcessAllEmbeddedDocuments _
+        1, _
+        "", _
+        "", _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 2
+' BLACK ALL DIAGRAMS + SMALL CIRCLES
+'====================================================================
+
+Private Sub STEP_2_BLACK_DIAGRAMS()
+
+    ProcessAllEmbeddedDocuments _
+        2, _
+        "", _
+        "", _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 3
+' #E6FFFF -> #BFBFBF
+'====================================================================
+
+Private Sub STEP_3_E6FFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(230, 255, 255), _
+        RGB(191, 191, 191), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 4
+' #F0FFFF -> #BFBFBF
+'====================================================================
+
+Private Sub STEP_4_F0FFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(240, 255, 255), _
+        RGB(191, 191, 191), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 5
+' #B4FFFF -> #5A5A5A
+'====================================================================
+
+Private Sub STEP_5_B4FFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(180, 255, 255), _
+        RGB(90, 90, 90), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 6
+' #96FFFF -> #808080
+'====================================================================
+
+Private Sub STEP_6_96FFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(150, 255, 255), _
+        RGB(128, 128, 128), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 7
+' #00FFFF -> #808080
+'====================================================================
+
+Private Sub STEP_7_00FFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(0, 255, 255), _
+        RGB(128, 128, 128), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 8
+' #DCFFFF -> #BFBFBF
+'====================================================================
+
+Private Sub STEP_8_DCFFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(220, 255, 255), _
+        RGB(191, 191, 191), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 9
+' #C8FFFF -> #BFBFBF
+'====================================================================
+
+Private Sub STEP_9_C8FFFF()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(200, 255, 255), _
+        RGB(191, 191, 191), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' STEP 10
+' #00B0F0 -> #A5A5A5
+'====================================================================
+
+Private Sub STEP_10_00B0F0()
+
+    ProcessAllEmbeddedDocuments _
+        3, _
+        RGB(0, 176, 240), _
+        RGB(165, 165, 165), _
+        0, _
+        0
+
+End Sub
+
+
+'====================================================================
+' FIND ALL EMBEDDED WORD DOCUMENTS
+'====================================================================
+
+Private Sub ProcessAllEmbeddedDocuments( _
+    ByVal mode As Long, _
+    ByVal oldColour As Variant, _
+    ByVal newColour As Variant, _
+    ByRef totalObjects As Long, _
+    ByRef totalChanged As Long)
+
+    Dim shp As Shape
+    Dim ils As InlineShape
+    Dim childDoc As Document
+
+
+    '============================================================
+    ' FLOATING OLE
+    '============================================================
+
+    For Each shp In ActiveDocument.Shapes
+
+        If shp.Type = msoEmbeddedOLEObject Then
+
+            Set childDoc = Nothing
+
+            On Error Resume Next
+            Set childDoc = shp.OLEFormat.Object
+            On Error GoTo 0
+
+            If Not childDoc Is Nothing Then
+
+                totalObjects = totalObjects + 1
+
+                ProcessDiagramDocument _
+                    childDoc, _
+                    mode, _
+                    oldColour, _
+                    newColour, _
+                    totalChanged
+
+                On Error Resume Next
+                childDoc.Save
+                On Error GoTo 0
+
+                CloseChildDocument childDoc
+
+            End If
+
+        End If
+
+    Next shp
+
+
+    '============================================================
+    ' INLINE OLE
+    '============================================================
+
+    For Each ils In ActiveDocument.InlineShapes
+
+        If ils.Type = wdInlineShapeEmbeddedOLEObject Then
+
+            Set childDoc = Nothing
+
+            On Error Resume Next
+            Set childDoc = ils.OLEFormat.Object
+            On Error GoTo 0
+
+            If Not childDoc Is Nothing Then
+
+                totalObjects = totalObjects + 1
+
+                ProcessDiagramDocument _
+                    childDoc, _
+                    mode, _
+                    oldColour, _
+                    newColour, _
+                    totalChanged
+
+                On Error Resume Next
+                childDoc.Save
+                On Error GoTo 0
+
+                CloseChildDocument childDoc
+
+            End If
+
+        End If
+
+    Next ils
+
+End Sub
+
+
+'====================================================================
+' PROCESS EMBEDDED WORD DOCUMENT
+'====================================================================
+
+Private Sub ProcessDiagramDocument( _
+    ByVal doc As Document, _
+    ByVal mode As Long, _
+    ByVal oldColour As Variant, _
+    ByVal newColour As Variant, _
+    ByRef totalChanged As Long)
+
+    Dim shp As Shape
+    Dim ils As InlineShape
+    Dim childDoc As Document
+
+
+    '============================================================
+    ' FLOATING SHAPES
+    '============================================================
+
+    For Each shp In doc.Shapes
+
+        ProcessDiagramShape _
+            shp, _
+            mode, _
+            oldColour, _
+            newColour, _
+            totalChanged
+
+    Next shp
+
+
+    '============================================================
+    ' INLINE OLE INSIDE DIAGRAM
+    '============================================================
+
+    For Each ils In doc.InlineShapes
+
+        If ils.Type = wdInlineShapeEmbeddedOLEObject Then
+
+            Set childDoc = Nothing
+
+            On Error Resume Next
+            Set childDoc = ils.OLEFormat.Object
+            On Error GoTo 0
+
+            If Not childDoc Is Nothing Then
+
+                ProcessDiagramDocument _
+                    childDoc, _
+                    mode, _
+                    oldColour, _
+                    newColour, _
+                    totalChanged
+
+                On Error Resume Next
+                childDoc.Save
+                On Error GoTo 0
+
+                CloseChildDocument childDoc
+
+            End If
+
+        End If
+
+    Next ils
+
+End Sub
+
+
+'====================================================================
+' PROCESS EVERY SHAPE
+'====================================================================
+
+Private Sub ProcessDiagramShape( _
+    ByVal shp As Shape, _
+    ByVal mode As Long, _
+    ByVal oldColour As Variant, _
+    ByVal newColour As Variant, _
+    ByRef totalChanged As Long)
+
+    Dim i As Long
+    Dim childDoc As Document
+
+    On Error Resume Next
+
+
+    '============================================================
+    ' NESTED EMBEDDED WORD OBJECT
+    '============================================================
+
+    If shp.Type = msoEmbeddedOLEObject Then
+
+        Set childDoc = Nothing
+
+        Set childDoc = shp.OLEFormat.Object
+
+        If Not childDoc Is Nothing Then
+
+            ProcessDiagramDocument _
+                childDoc, _
+                mode, _
+                oldColour, _
+                newColour, _
+                totalChanged
+
+            childDoc.Save
+
+            CloseChildDocument childDoc
+
+        End If
+
+        Set childDoc = Nothing
+
+        Exit Sub
+
+    End If
+
+
+    '============================================================
+    ' GROUP
+    '============================================================
+
+    If shp.Type = msoGroup Then
+
+        For i = 1 To shp.GroupItems.Count
+
+            ProcessDiagramShape _
+                shp.GroupItems(i), _
+                mode, _
+                oldColour, _
+                newColour, _
+                totalChanged
+
+        Next i
+
+    End If
+
+
+    '============================================================
+    ' DRAWING CANVAS
+    '============================================================
+
+    If shp.Type = msoCanvas Then
+
+        For i = 1 To shp.CanvasItems.Count
+
+            ProcessDiagramShape _
+                shp.CanvasItems(i), _
+                mode, _
+                oldColour, _
+                newColour, _
+                totalChanged
+
+        Next i
+
+    End If
+
+
+    '============================================================
+    ' STEP 1
+    ' ONLY CANVAS ITEMS
+    ' BLACK OUTLINE + TEXT
+    '============================================================
+
+    If mode = 1 Then
+
+        ProcessCanvasBlack _
+            shp, _
+            totalChanged
+
+        Exit Sub
+
+    End If
+
+
+    '============================================================
+    ' STEP 2
+    ' BLACK DIAGRAMS + SMALL CIRCLES
+    '============================================================
+
+    If mode = 2 Then
+
+        ProcessBlackDiagram _
+            shp, _
+            totalChanged
+
+        Exit Sub
+
+    End If
+
+
+    '============================================================
+    ' STEP 3-10
+    ' COLOUR FIND & REPLACE
+    '============================================================
+
+    If mode = 3 Then
+
+        ReplaceDiagramColour _
+            shp, _
+            CLng(oldColour), _
+            CLng(newColour), _
+            totalChanged
+
+    End If
+
+    On Error GoTo 0
+
+End Sub
+
+
+'====================================================================
+' STEP 1 PROCESSOR
+'====================================================================
+
+Private Sub ProcessCanvasBlack( _
+    ByVal shp As Shape, _
+    ByRef totalChanged As Long)
+
+    On Error Resume Next
+
+
+    '============================================================
+    ' OUTLINE BLACK
+    '============================================================
+
+    Err.Clear
+
+    shp.Line.ForeColor.RGB = RGB(0, 0, 0)
+
+    If Err.Number = 0 Then
+        totalChanged = totalChanged + 1
+    End If
+
+
+    '============================================================
+    ' TEXT BLACK
+    '============================================================
+
+    Err.Clear
+
+    If shp.TextFrame.HasText Then
+
+        shp.TextFrame.TextRange.Font.Color = RGB(0, 0, 0)
+
+        If Err.Number = 0 Then
+            totalChanged = totalChanged + 1
+        End If
+
+    End If
+
+
+    '============================================================
+    ' TEXTFRAME2 BLACK
+    '============================================================
+
+    Err.Clear
+
+    If shp.TextFrame2.HasText Then
+
+        shp.TextFrame2.TextRange.Font.Fill.ForeColor.RGB = _
+            RGB(0, 0, 0)
+
+        If Err.Number = 0 Then
+            totalChanged = totalChanged + 1
+        End If
+
+    End If
+
+
+    On Error GoTo 0
+
+End Sub
+
+
+'====================================================================
+' STEP 2 PROCESSOR
+'====================================================================
+
+Private Sub ProcessBlackDiagram( _
+    ByVal shp As Shape, _
+    ByRef totalChanged As Long)
+
+    On Error Resume Next
+
+
+    '============================================================
+    ' OUTLINE
+    '============================================================
+
+    Err.Clear
+
+    If shp.Line.Visible Then
+
+        shp.Line.ForeColor.RGB = RGB(0, 0, 0)
+
+        If Err.Number = 0 Then
+            totalChanged = totalChanged + 1
+        End If
+
+    End If
+
+
+    '============================================================
+    ' TEXT
+    '============================================================
+
+    Err.Clear
+
+    If shp.TextFrame.HasText Then
+
+        shp.TextFrame.TextRange.Font.Color = RGB(0, 0, 0)
+
+        If Err.Number = 0 Then
+            totalChanged = totalChanged + 1
+        End If
+
+    End If
+
+
+    '============================================================
+    ' TEXTFRAME2
+    '============================================================
+
+    Err.Clear
+
+    If shp.TextFrame2.HasText Then
+
+        shp.TextFrame2.TextRange.Font.Fill.ForeColor.RGB = _
+            RGB(0, 0, 0)
+
+        If Err.Number = 0 Then
+            totalChanged = totalChanged + 1
+        End If
+
+    End If
+
+
+    '============================================================
+    ' SMALL CIRCLE
+    '
+    ' <= 0.06" x <= 0.06"
+    ' approximately circular
+    '============================================================
+
+    If IsSmallCircleFinal(shp) Then
+
+        Err.Clear
+
+        shp.Fill.Visible = msoTrue
+        shp.Fill.Solid
+        shp.Fill.ForeColor.RGB = RGB(0, 0, 0)
+
+        shp.Line.Visible = msoTrue
+        shp.Line.ForeColor.RGB = RGB(0, 0, 0)
+
+        If Err.Number = 0 Then
+            totalChanged = totalChanged + 1
+        End If
+
+    End If
+
+
+    On Error GoTo 0
+
+End Sub
+
+
+'====================================================================
+' COLOUR FIND & REPLACE
+'====================================================================
+
+Private Sub ReplaceDiagramColour( _
+    ByVal shp As Shape, _
+    ByVal oldRGB As Long, _
+    ByVal newRGB As Long, _
+    ByRef totalChanged As Long)
+
+    On Error Resume Next
+
+
+    '============================================================
+    ' FILL
+    '============================================================
+
+    Err.Clear
+
+    If shp.Fill.Visible Then
+
+        If shp.Fill.ForeColor.RGB = oldRGB Then
+
+            shp.Fill.ForeColor.RGB = newRGB
+
+            If Err.Number = 0 Then
+                totalChanged = totalChanged + 1
+            End If
+
+        End If
+
+    End If
+
+
+    '============================================================
+    ' OUTLINE
+    '============================================================
+
+    Err.Clear
+
+    If shp.Line.Visible Then
+
+        If shp.Line.ForeColor.RGB = oldRGB Then
+
+            shp.Line.ForeColor.RGB = newRGB
+
+            If Err.Number = 0 Then
+                totalChanged = totalChanged + 1
+            End If
+
+        End If
+
+    End If
+
+
+    On Error GoTo 0
+
+End Sub
+
+
+'====================================================================
+' SMALL CIRCLE CHECK
+'====================================================================
+
+Private Function IsSmallCircleFinal( _
+    ByVal shp As Shape) As Boolean
+
+    Dim w As Double
+    Dim h As Double
+    Dim difference As Double
+
+    On Error GoTo NOT_CIRCLE
+
+
+    '============================================================
+    ' ONLY AUTOSHAPE
+    '============================================================
+
+    If shp.Type <> msoAutoShape Then
+
+        IsSmallCircleFinal = False
+        Exit Function
+
+    End If
+
+
+    '============================================================
+    ' ONLY OVAL
+    '============================================================
+
+    If shp.AutoShapeType <> msoShapeOval Then
+
+        IsSmallCircleFinal = False
+        Exit Function
+
+    End If
+
+
+    '============================================================
+    ' 0.06 INCH = 4.32 POINTS
+    '============================================================
+
+    w = shp.Width
+    h = shp.Height
+
+
+    If w > 4.32 Then
+
+        IsSmallCircleFinal = False
+        Exit Function
+
+    End If
+
+
+    If h > 4.32 Then
+
+        IsSmallCircleFinal = False
+        Exit Function
+
+    End If
+
+
+    '============================================================
+    ' MUST ACTUALLY BE CIRCLE
+    '============================================================
+
+    difference = Abs(w - h)
+
+    If difference > 0.15 Then
+
+        IsSmallCircleFinal = False
+        Exit Function
+
+    End If
+
+
+    IsSmallCircleFinal = True
+
+    Exit Function
+
+
+NOT_CIRCLE:
+
+    IsSmallCircleFinal = False
+
+End Function
+
+
+'====================================================================
+' CLOSE EMBEDDED DOCUMENT
+'====================================================================
+
+Private Sub CloseChildDocument( _
+    ByVal doc As Document)
+
+    On Error Resume Next
+
+    If Not doc Is ActiveDocument Then
+
+        doc.Close SaveChanges:=wdSaveChanges
+
+    End If
+
+    Err.Clear
+
+    On Error GoTo 0
+
+End Sub
