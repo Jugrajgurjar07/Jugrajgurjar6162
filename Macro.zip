@@ -1,0 +1,2177 @@
+Sub Macro7()
+'
+' Macro1_equation_break Macro
+'
+'
+    Selection.HomeKey Unit:=wdLine
+    Selection.EndKey Unit:=wdLine, Extend:=wdExtend
+    Selection.Cut
+    Selection.HomeKey Unit:=wdLine
+    Selection.HomeKey Unit:=wdLine
+    Selection.HomeKey Unit:=wdLine
+    Selection.HomeKey Unit:=wdLine
+    Selection.HomeKey Unit:=wdLine
+    Selection.HomeKey Unit:=wdLine
+    Selection.HomeKey Unit:=wdLine
+    Selection.TypeParagraph
+    Selection.MoveUp Unit:=wdLine, Count:=1
+    Selection.HomeKey Unit:=wdLine
+    Selection.Paste
+End Sub
+Sub Macro1_FORMATING_JEE()
+'
+' Macro1_FORMATING_JEE Macro
+'
+'
+
+    Selection.Find.ClearFormatting
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^b"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^m"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^n"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    
+    
+    
+    
+    Selection.WholeStory
+    With ActiveDocument.Styles(wdStyleNormal).Font
+        If .NameFarEast = .NameAscii Then
+            .NameAscii = ""
+        End If
+        .NameFarEast = ""
+    End With
+    With ActiveDocument.PageSetup
+        .LineNumbering.Active = False
+        .Orientation = wdOrientPortrait
+        .TopMargin = InchesToPoints(0.5)
+        .BottomMargin = InchesToPoints(0.5)
+        .LeftMargin = InchesToPoints(0.5)
+        .RightMargin = InchesToPoints(0.5)
+        .Gutter = InchesToPoints(0)
+        .HeaderDistance = InchesToPoints(0.5)
+        .FooterDistance = InchesToPoints(0)
+        .PageWidth = InchesToPoints(8.27)
+        .PageHeight = InchesToPoints(11.69)
+        .FirstPageTray = wdPrinterDefaultBin
+        .OtherPagesTray = wdPrinterDefaultBin
+        .SectionStart = wdSectionNewPage
+        .OddAndEvenPagesHeaderFooter = False
+        .DifferentFirstPageHeaderFooter = True
+        .VerticalAlignment = wdAlignVerticalTop
+        .SuppressEndnotes = False
+        .MirrorMargins = False
+        .TwoPagesOnOne = False
+        .BookFoldPrinting = False
+        .BookFoldRevPrinting = False
+        .BookFoldPrintingSheets = 1
+        .GutterPos = wdGutterPosLeft
+    End With
+    
+    
+
+    If ActiveWindow.View.SplitSpecial <> wdPaneNone Then
+        ActiveWindow.Panes(B).Close
+    End If
+    If ActiveWindow.ActivePane.View.Type <> wdPrintView Then
+        ActiveWindow.ActivePane.View.Type = wdPrintView
+    End If
+    With Selection.PageSetup.TextColumns
+        .SetCount NumColumns:=2
+        .EvenlySpaced = True
+        .LineBetween = True
+        .Width = InchesToPoints(3.51)
+        .Spacing = InchesToPoints(0.25)
+    End With
+
+
+
+
+    Selection.WholeStory
+    Selection.Font.Size = 11
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.Font
+        .Name = ""
+        .Spacing = 0
+    End With
+    Selection.MoveUp Unit:=wdLine, Count:=1
+    
+    
+    
+    
+    With ActiveDocument.Styles(wdStyleNormal).Font
+        .Name = "Times New Roman"
+        .Size = 11
+        .Bold = False
+        .Italic = False
+        .Underline = wdUnderlineNone
+        .UnderlineColor = wdColorAutomatic
+        .StrikeThrough = False
+        .DoubleStrikeThrough = False
+        .Outline = False
+        .Emboss = False
+        .Shadow = False
+        .Hidden = False
+        .SmallCaps = False
+        .AllCaps = False
+        .Color = wdColorAutomatic
+        .Engrave = False
+        .Superscript = False
+        .Subscript = False
+        .Spacing = 0
+        .Scaling = 100
+        .Position = 0
+        .Kerning = 0
+        .Animation = wdAnimationNone
+        .Ligatures = wdLigaturesNone
+        .NumberSpacing = wdNumberSpacingDefault
+        .NumberForm = wdNumberFormDefault
+        .StylisticSet = wdStylisticSetDefault
+        .ContextualAlternates = 0
+    End With
+    
+
+    Selection.Find.ClearFormatting
+    With Selection.Find.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphLeft
+    End With
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphJustify
+    End With
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    
+    
+    
+    
+    Selection.Find.ClearFormatting
+    With Selection.Find.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphJustify
+    End With
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.39)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .Alignment = wdAlignParagraphJustify
+        .FirstLineIndent = InchesToPoints(-0.39)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^l"
+        .Replacement.Text = "^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+
+
+
+    With Selection.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.39)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.2)
+        .FirstLineIndent = InchesToPoints(-0.39)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+    End With
+    Selection.HomeKey Unit:=wdLine
+
+
+
+
+
+
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+    End With
+    Selection.ParagraphFormat.TabStops.ClearAll
+    ActiveDocument.DefaultTabStop = InchesToPoints(0.5)
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+    End With
+    Selection.ParagraphFormat.TabStops.ClearAll
+    ActiveDocument.DefaultTabStop = InchesToPoints(0.5)
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(0.39), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(0.69), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(1.94), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(2.25), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.HomeKey Unit:=wdLine
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p(B)"
+        .Replacement.Text = "^t(B)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "^p(D)"
+        .Replacement.Text = "^t(D)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(A) "
+        .Replacement.Text = "(A)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(B) "
+        .Replacement.Text = "(B)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(C) "
+        .Replacement.Text = "^p^t(C)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(D) "
+        .Replacement.Text = "(D)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(A)^t"
+        .Replacement.Text = "^t(A)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(B)^t"
+        .Replacement.Text = "(B)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(C)^t"
+        .Replacement.Text = "^p^t(C)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(D)^t"
+        .Replacement.Text = "(D)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^t^t"
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p^p^p"
+        .Replacement.Text = "^p^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^t "
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = " ^t"
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(A)"
+        .Replacement.Text = "(A)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B)"
+        .Replacement.Text = "(B)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C)"
+        .Replacement.Text = "(C)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D)"
+        .Replacement.Text = "(D)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 5287936
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(A*)"
+        .Replacement.Text = "^t(A*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B*)"
+        .Replacement.Text = "^t(B*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C*)"
+        .Replacement.Text = "^p^t(C*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D*)"
+        .Replacement.Text = "^t(D*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    With Selection.ParagraphFormat
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.2)
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+    End With
+    Selection.HomeKey Unit:=wdLine
+
+
+
+
+
+    Selection.WholeStory
+    Selection.HomeKey Unit:=wdLine
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.39)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.2)
+        .Alignment = wdAlignParagraphJustify
+        .WidowControl = True
+        .KeepWithNext = False
+        .KeepTogether = False
+        .PageBreakBefore = False
+        .NoLineNumber = False
+        .Hyphenation = True
+        .FirstLineIndent = InchesToPoints(-0.39)
+        .OutlineLevel = wdOutlineLevelBodyText
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+        .MirrorIndents = False
+        .TextboxTightWrap = wdTightNone
+        .CollapsedByDefault = False
+    End With
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(A)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+   Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 5287936
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(A*)"
+        .Replacement.Text = "(A*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 5287936
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(B*)"
+        .Replacement.Text = "(B*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+        Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 5287936
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(C*)"
+        .Replacement.Text = "(C*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+        Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 5287936
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(D*)"
+        .Replacement.Text = "(D*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+   Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^t^t"
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find.Replacement.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.69)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBeforeAuto = False
+        .SpaceAfterAuto = False
+        .FirstLineIndent = InchesToPoints(-0.69)
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+    End With
+    With Selection.Find
+        .Text = "(A)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(A*)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B*)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C*)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D*)^t"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "  "
+        .Replacement.Text = " "
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = " ^t"
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "^t "
+        .Replacement.Text = "^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "^t^p"
+        .Replacement.Text = "^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchKashida = False
+        .MatchDiacritics = False
+        .MatchAlefHamza = False
+        .MatchControl = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    With Selection.Find
+    .Font.Name = "Kruti Dev 010"
+    .Font.Size = "11"
+    .Replacement.Font.Name = "Kruti Dev 010"
+    .Replacement.Font.Size = "13"
+End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    With Selection.Find
+    .Font.Name = "Times"
+    .Font.Size = "11"
+    .Replacement.Font.Name = "Times New Roman"
+    .Replacement.Font.Size = "11"
+End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    With Selection.Find
+    .Font.Name = "Calibri"
+    .Font.Size = "11"
+    .Replacement.Font.Name = "Times New Roman"
+    .Replacement.Font.Size = "11"
+End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    With Selection.Find
+    .Font.Name = "Arial"
+    .Font.Size = "11"
+    .Replacement.Font.Name = "Times New Roman"
+    .Replacement.Font.Size = "11"
+End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    With Selection.Find
+    .Font.Name = "Times,Bold"
+    .Font.Size = "11"
+    .Replacement.Font.Name = "Times New Roman"
+    .Replacement.Font.Size = "11"
+End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+   Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p^p^p"
+        .Replacement.Text = "^p^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "^p^p^t(C)^t"
+        .Replacement.Text = "^p^t(C)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 5287936
+    With Selection.Find
+        .Text = "^p^p^t(C*)^t"
+        .Replacement.Text = "^p^t(C*)^t"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = True
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+End Sub
+
+Sub Macro2_answerkey_9()
+'
+' Macro2_answerkey_9 Macro
+'
+'
+
+    Selection.WholeStory
+    Selection.HomeKey Unit:=wdLine
+
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Font.Bold = True
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "^#^#^#."
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Font.Bold = True
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "^#^#."
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+
+    Selection.Find.ClearFormatting
+    Selection.Find.Font.Bold = True
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "^#."
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+    
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(1*)"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(2*)"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(3*)"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(4*)"
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Font.Color = wdColorAutomatic
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "("
+        .Replacement.Text = "^t("
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = ")"
+        .Replacement.Text = ")^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(1*)"
+        .Replacement.Text = "(1)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    
+    
+        Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(2*)"
+        .Replacement.Text = "(2)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+        Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(3*)"
+        .Replacement.Text = "(3)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+
+        Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(4*)"
+        .Replacement.Text = "(4)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+
+    
+    
+End Sub
+Sub Macro1_LOWERD()
+
+'
+' Macro1_LOWERD Macro
+'
+'
+ With Selection.Font
+ .Position = .Position - 1
+End With
+End Sub
+Sub Macro1_RAISED()
+
+'
+' Macro1_RAISED Macro
+'
+'
+ With Selection.Font
+ .Position = .Position + 1
+End With
+End Sub
+
+Sub Macro5()
+'
+' Macro5 Macro
+'
+'
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = 238
+    With Selection.Find
+        .Text = "(a)"
+        .Replacement.Text = "(1)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(b)"
+        .Replacement.Text = "(2)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(c)"
+        .Replacement.Text = "(3)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(d)"
+        .Replacement.Text = "(4)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+End Sub
+Sub Macro6()
+'
+' Macro6 Macro
+'
+'
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(A)"
+        .Replacement.Text = "(1)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B)"
+        .Replacement.Text = "(2)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C)"
+        .Replacement.Text = "(3)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D)"
+        .Replacement.Text = "(4)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(A*)"
+        .Replacement.Text = "(1*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(B*)"
+        .Replacement.Text = "(2*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(C*)"
+        .Replacement.Text = "(3*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(D*)"
+        .Replacement.Text = "(4*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+End Sub
+Sub Macro8()
+'
+' Macro8 Macro
+'
+'
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    Selection.Find.Replacement.Font.Color = wdColorRed
+    With Selection.Find
+        .Text = "(1*)"
+        .Replacement.Text = "(A*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(2*)"
+        .Replacement.Text = "(B*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(3*)"
+        .Replacement.Text = "(C*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(4*)"
+        .Replacement.Text = "(D*)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(1)"
+        .Replacement.Text = "(A)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(2)"
+        .Replacement.Text = "(B)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(3)"
+        .Replacement.Text = "(C)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(4)"
+        .Replacement.Text = "(D)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+End Sub
+
+Sub Macro9()
+'
+' Macro9 Macro
+'
+'
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "(a)"
+        .Replacement.Text = "(A)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(b)"
+        .Replacement.Text = "(B)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(c)"
+        .Replacement.Text = "(C)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+    With Selection.Find
+        .Text = "(d)"
+        .Replacement.Text = "(D)"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+End Sub
+Sub Convert_KrutiDev_To_TimesNewRoman_All()
+    Dim i As Integer
+    Dim texts As Variant
+    Dim replacements As Variant
+    Dim findText As String
+    Dim replaceText As String
+
+    ' ============================
+    ' ?? PART 1: Replace ¼…½ Patterns (case safe)
+    ' ============================
+    texts = Array( _
+        "¼1½", "¼2½", "¼3½", "¼4½", _
+        "¼a½", "¼b½", "¼c½", "¼d½", _
+        "¼A½", "¼B½", "¼C½", "¼D½", _
+        "¼i½", "¼ii½", "¼iii½", "¼iv½", _
+        "¼I½", "¼II½", "¼III½", "¼IV½" _
+    )
+
+    replacements = Array( _
+        "(1)", "(2)", "(3)", "(4)", _
+        "(a)", "(b)", "(c)", "(d)", _
+        "(A)", "(B)", "(C)", "(D)", _
+        "(i)", "(ii)", "(iii)", "(iv)", _
+        "(I)", "(II)", "(III)", "(IV)" _
+    )
+
+    For i = LBound(texts) To UBound(texts)
+        Selection.Find.ClearFormatting
+        Selection.Find.Replacement.ClearFormatting
+
+        ' Find only Kruti Dev font text
+        Selection.Find.Font.Name = "Kruti Dev 010"
+
+        ' Replace with Times New Roman (11pt)
+        With Selection.Find.Replacement.Font
+            .Name = "Times New Roman"
+            .Size = 11
+            .Bold = False
+        End With
+
+        With Selection.Find
+            .Text = texts(i)
+            .Replacement.Text = replacements(i)
+            .Forward = True
+            .Wrap = wdFindContinue
+            .Format = True
+            .MatchCase = False ' ? keeps case consistent
+            .MatchWholeWord = False
+            .MatchWildcards = False
+        End With
+
+        Selection.Find.Execute Replace:=wdReplaceAll
+    Next i
+
+
+    ' ============================
+    ' ?? PART 2: Replace 1- ? 1. (Bold Numbering)
+    ' ============================
+    For i = 30 To 1 Step -1
+        findText = i & "-"
+        replaceText = i & "."
+
+        Selection.Find.ClearFormatting
+        Selection.Find.Replacement.ClearFormatting
+
+        Selection.Find.Font.Name = "Kruti Dev 010"
+
+        With Selection.Find.Replacement.Font
+            .Name = "Times New Roman"
+            .Size = 11
+            .Bold = True
+        End With
+
+        With Selection.Find
+            .Text = findText
+            .Replacement.Text = replaceText
+            .Forward = True
+            .Wrap = wdFindContinue
+            .Format = True
+            .MatchCase = True
+            .MatchWholeWord = False
+            .MatchWildcards = False
+        End With
+
+        Selection.Find.Execute Replace:=wdReplaceAll
+    Next i
+
+
+    ' ============================
+    ' ? DONE
+    ' ============================
+    MsgBox "? Conversion Complete! (A)/(a) and Roman cases now preserved perfectly.", vbInformation
+End Sub
+
+Sub Macro1()
+'
+' Macro1 Macro
+'
+'
+    With Selection.ParagraphFormat
+        .LeftIndent = InchesToPoints(0.5)
+        .RightIndent = InchesToPoints(0)
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceMultiple
+        .LineSpacing = LinesToPoints(1.15)
+        .Alignment = wdAlignParagraphLeft
+        .KeepWithNext = False
+        .KeepTogether = False
+        .PageBreakBefore = False
+        .NoLineNumber = False
+        .Hyphenation = True
+        .FirstLineIndent = InchesToPoints(-0.5)
+        .OutlineLevel = wdOutlineLevelBodyText
+        .CharacterUnitLeftIndent = 0
+        .CharacterUnitRightIndent = 0
+        .CharacterUnitFirstLineIndent = 0
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+        .MirrorIndents = False
+        .TextboxTightWrap = wdTightNone
+        .CollapsedByDefault = False
+    End With
+    Selection.ParagraphFormat.TabStops.ClearAll
+    ActiveDocument.DefaultTabStop = InchesToPoints(0.5)
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(0.5), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(0.75), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(2), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(3.5), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+    Selection.ParagraphFormat.TabStops.Add Position:=InchesToPoints(5), _
+        Alignment:=wdAlignTabLeft, Leader:=wdTabLeaderSpaces
+End Sub
+Sub Macro2()
+'
+' Macro2 Macro
+'
+'
+    Selection.Font.Name = "Signika"
+    Selection.Font.Size = 11
+End Sub
