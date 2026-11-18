@@ -1,2 +1,2 @@
 # Jugrajgurjar6162
-Jugrajgurjar6162 script files
+This is the official repository of Jugrajgurjar6162.
